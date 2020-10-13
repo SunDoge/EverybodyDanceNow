@@ -334,7 +334,7 @@ def renderpose(posepts, canvas):
 		return renderpose23(posepts, canvas)
 	elif poselen == 25:
 		return renderpose25(posepts, canvas)
-	print("Pose Length of " + str(poselen) + " is not supported")
+	print(("Pose Length of " + str(poselen) + " is not supported"))
 	import sys
 	sys.exit(1)
 
@@ -358,8 +358,8 @@ def renderface(facepts, canvas, disp=False, threshold = 0.2, smalldot = 2):
 
 	if disp: #graph the lines between points
 		stickwidth = 1
-		linearSeq = [range(0, 16+1), range(17, 21+1), range(22, 26+1), range(27, 30+1), range(31, 35+1)]
-		circularSeq = [range(36, 41+1), range(42, 47+1), range(48, 59+1), range(60, 67)]
+		linearSeq = [list(range(0, 16+1)), list(range(17, 21+1)), list(range(22, 26+1)), list(range(27, 30+1)), list(range(31, 35+1))]
+		circularSeq = [list(range(36, 41+1)), list(range(42, 47+1)), list(range(48, 59+1)), list(range(60, 67))]
 
 		for line in linearSeq:
 			for step in line:
@@ -443,7 +443,7 @@ def renderhand(handpts, canvas, threshold = 0.05):
 		i += 3
 
 	stickwidth = 2
-	linearSeq = [range(1, 4+1), range(5, 8+1), range(9, 12+1), range(13, 16+1), range(17, 20+1)]
+	linearSeq = [list(range(1, 4+1)), list(range(5, 8+1)), list(range(9, 12+1)), list(range(13, 16+1)), list(range(17, 20+1))]
 	for line in linearSeq:
 		for step in line:
 			if step != line[len(line) - 1]:
@@ -564,7 +564,7 @@ def get_pose_stats(posepts):
 		rfoot = 11
 		lfoot = 14
 	else:
-		print "pose length of %d format is not supported" % len(posepts)
+		print("pose length of %d format is not supported" % len(posepts))
 		import sys
 		sys.exit(1)
 		
@@ -708,7 +708,7 @@ def getmedians_adapt(keypoint_list, threshold = 0.0, printme=False):
 			else:
 				yo = np.array([0.0,0.0,0.0])
 			if printme:
-				print yo, j//3
+				print(yo, j//3)
 		# else:
 		# 	print "hoobooo"
 		my_median[j] = yo[0]
@@ -718,5 +718,5 @@ def getmedians_adapt(keypoint_list, threshold = 0.0, printme=False):
 	# print len(my_median)
 	# print my_median[-1]
 	if printme:
-		print my_median
+		print(my_median)
 	return np.array(my_median)

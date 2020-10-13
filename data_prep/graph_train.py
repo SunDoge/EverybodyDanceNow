@@ -102,6 +102,7 @@ while n <= end:
     framesmadestr = '%06d' % numframesmade
 
     filebase_name = os.path.splitext(frames[n])[0]
+    print('filebase_name:', filebase_name)
     key_name = os.path.join(keypoints_dir, filebase_name)
     frame_name = os.path.join(frames_dir, frames[n])
 
