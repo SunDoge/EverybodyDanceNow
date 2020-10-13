@@ -9,4 +9,7 @@ $OPENPOSE_BIN \
 --display 0 \
 --render_pose 0 \
 --write_keypoint_format yml \
---write_keypoint body25_yml/
+--write_keypoint keypoints/ 
+
+# 分帧
+ffmpeg -i $VIDEO original_frames/frame%06d.png
