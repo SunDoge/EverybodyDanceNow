@@ -12,7 +12,7 @@ from PIL import Image
 from shutil import copyfile
 from skimage import img_as_float
 from functools import reduce
-from renderopenpose import *
+from .renderopenpose import *
 from scipy.misc import imresize
 from scipy.misc import imsave
 import os

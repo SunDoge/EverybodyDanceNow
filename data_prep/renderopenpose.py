@@ -13,7 +13,7 @@ from shutil import copyfile
 # from skimage import img_as_float
 from math import sqrt
 from functools import reduce
-from pose_object import Pose
+from .pose_object import Pose
 import os
 
 gaussconst = 2000
