@@ -14,7 +14,7 @@ $OPENPOSE_BIN \
 # 分帧
 ffmpeg -i $VIDEO original_frames/frame%06d.png
 
-ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vn
+ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vc
 python -m data_prep.graph_train \
 --keypoints_dir $ROOT/keypoints \
 --frames_dir $ROOT/original_frames \
@@ -22,3 +22,14 @@ python -m data_prep.graph_train \
 --spread 0 2000 1 \
 --map_25_to_23 \
 --facetexts
+
+ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vc/savefolder
+python train_fullts.py \
+--name vc_global \
+--dataroot $ROOT \
+--checkpoints_dir exps/vc \
+--loadSize 512 \
+--no_instance \
+--no_flip \
+--tf_log \
+--label_nc 6
