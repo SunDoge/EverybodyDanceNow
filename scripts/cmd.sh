@@ -1,6 +1,8 @@
 OPENPOSE_BIN=/openpose/build/examples/openpose/openpose.bin
 VIDEO=/home/huangdeng/Datasets/URMP_video_sep/vc/VidSep_2_vc_01_Jupiter.mp4
 
+VIDEO=/home/huangdeng/Datasets/URMP_video_sep/vn/VidSep_1_vn_01_Jupiter.mp4
+
 # do not open display window
 $OPENPOSE_BIN \
     --face \
