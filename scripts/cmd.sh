@@ -5,7 +5,6 @@ VIDEO=/home/huangdeng/Datasets/URMP_video_sep/vn/VidSep_1_vn_01_Jupiter.mp4
 VIDEO=/home/huangdeng/Datasets/URMP_video_sep/vn/VidSep_1_vn_02_Sonata.mp4
 VIDEO=/home/huangdeng/Datasets/URMP_video_sep/vc/VidSep_2_vc_11_Maria.mp4
 
-
 # do not open display window
 $OPENPOSE_BIN \
     --face \
@@ -17,6 +16,7 @@ $OPENPOSE_BIN \
     --write_keypoint keypoints/
 
 # 分帧
+mkdir original_frames
 ffmpeg -i $VIDEO original_frames/frame%06d.png
 
 ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vc
@@ -62,7 +62,7 @@ python test_fullts.py \
     --label_nc 6
 
 # 处理test的keypoints
-TARGET=/home/huangdeng/Code/python/playground/urmp-vid01/vc
+TARGET=/home/huangdeng/Code/python/playground/urmp-vid11/vc
 SOURCE=/home/huangdeng/Code/python/playground/urmp-vid01/vc
 python -m data_prep.graph_posenorm \
     --target_keypoints $TARGET/keypoints \
@@ -74,4 +74,4 @@ python -m data_prep.graph_posenorm \
     --target_spread 0 1800 \
     --source_spread 0 1800 \
     --calculate_scale_translation \
-    --map_25_to_23 
+    --map_25_to_23
