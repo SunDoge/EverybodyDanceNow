@@ -13,14 +13,21 @@ from tqdm import tqdm
 @dataclass
 class Args(TypedArgs):
     input_dir: Path = add_argument()
-    replace: str = add_argument('-r', '--replace')
+    # replace: str = add_argument('-r', '--replace')
 
 
 def main():
     args = Args.from_args()
+
+    example_file = next(args.input_dir.glob('*_face.yml'))
+    replace_name = example_file.name[:-15]
+    print('Replace name:', replace_name)
+
+    # exit()
+
     for filename in tqdm(os.listdir(args.input_dir)):
         new_file: Path = args.input_dir / filename.replace(
-            args.replace, 'frame'
+            replace_name, 'frame'
         )
         (args.input_dir / filename).replace(new_file)
 

@@ -13,8 +13,9 @@ from shutil import copyfile
 from skimage import img_as_float
 from functools import reduce
 from .renderopenpose import *
-from scipy.misc import imresize
-from scipy.misc import imsave
+# from scipy.misc import imresize
+# from skimage.transform import resize as imresize
+# from scipy.misc import imsave
 import os
 import argparse
 
@@ -57,7 +58,7 @@ boxbuffer = opt.boxbuffer
 numframesmade = 0
 n = start
 
-print step
+print(step)
 
 startx = 0
 endx = myshape[1]
@@ -101,7 +102,7 @@ original_queue = []
 
 n = start
 while n <= end:
-	print n
+	print(n)
 	framesmadestr = '%06d' % numframesmade
 
 	filebase_name = os.path.splitext(frames[n])[0]
@@ -123,7 +124,7 @@ while n <= end:
 			sys.exit(0)
 
 	if not (len(posepts) in poselen):
-		print "EMPTY"
+		print("EMPTY")
 		n += 1
 		continue
 	oriImg = cv.imread(frame_name)
@@ -149,7 +150,7 @@ while n <= end:
 	original_queue += [oriImg]
 
 	if len(pose_window) >= w_size:
-		print("Plotting stick figure for last frame " + filebase_name)
+		print(("Plotting stick figure for last frame " + filebase_name))
 		h_span = w_size // 2
 
 		all_pose = np.array(pose_window)

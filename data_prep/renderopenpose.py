@@ -575,6 +575,10 @@ def get_pose_stats(posepts):
 	con10 = posepts[(3*rfoot)+2] > 0
 	con13 = posepts[(3*lear)+2] > 0
 
+	print('con0', posepts[(3*nose)+2])
+	print('con10', posepts[(3*rfoot)+2])
+	print('con13', posepts[(3*lear)+2])
+
 	headx = posepts[(3*nose)]
 	heady = posepts[(3*nose)+1]
 
@@ -586,6 +590,7 @@ def get_pose_stats(posepts):
 		heady = 0.5*(posepts[(3*rear)+1]+posepts[(3*lear)+1])
 
 	if (con0 and con10) and con13:
+	# if (con0 or con10) or con13: # 放宽条件
 		# headx = posepts[0]
 		# heady = posepts[0+1]
 
