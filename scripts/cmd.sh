@@ -19,7 +19,7 @@ $OPENPOSE_BIN \
 mkdir original_frames
 ffmpeg -i $VIDEO original_frames/frame%06d.png
 
-ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vc
+ROOT=/home/huangdeng/Code/python/playground/urmp-vid11/vc
 python -m data_prep.graph_train \
     --keypoints_dir $ROOT/keypoints \
     --frames_dir $ROOT/original_frames \
@@ -29,11 +29,11 @@ python -m data_prep.graph_train \
     --facetexts
 
 # 不要log_tf，因为根本不知道是哪个版本的tf
-ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vc/savefolder
+ROOT=/home/huangdeng/smil-247/Code/python/playground/urmp-vid01/vn/savefolder
 python train_fullts.py \
-    --name vc_global \
+    --name vn_global \
     --dataroot $ROOT \
-    --checkpoints_dir exps/000-vc \
+    --checkpoints_dir exps/001-vn-vid01 \
     --loadSize 512 \
     --no_instance \
     --no_flip \
@@ -50,12 +50,12 @@ python -m data_prep.graph_train \
     --map_25_to_23 \
     --facetexts
 
-ROOT=/home/huangdeng/Code/python/playground/urmp-vid01/vc/savefolder
+ROOT=/home/huangdeng/Code/python/playground/urmp-vid11/vc/savefolder
 python test_fullts.py \
     --name vc_global \
     --dataroot $ROOT \
     --checkpoints_dir exps/000-vc \
-    --results_dir exps/000-vc-result \
+    --results_dir exps/000-vc-vid11-result \
     --loadSize 512 \
     --no_instance \
     --how_many 2000 \
