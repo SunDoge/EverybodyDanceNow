@@ -322,6 +322,9 @@ class Pix2PixHDModel(BaseModel):
             return I_0
         return initial_I_0
 
+    def inference_with_flow(self, label, next_label, prevouts, face_coords):
+        pass
+
     def get_edges(self, t):
         edge = torch.cuda.ByteTensor(t.size()).zero_()
         edge[:,:,:,1:] = edge[:,:,:,1:] | (t[:,:,:,1:] != t[:,:,:,:-1])
