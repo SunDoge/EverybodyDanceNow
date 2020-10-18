@@ -1,5 +1,6 @@
 ### Copyright (C) 2017 NVIDIA Corporation. All rights reserved. 
 ### Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
+import cv2
 import numpy as np
 import torch
 import os
@@ -9,6 +10,9 @@ import util.util as util
 from util.image_pool import ImagePool
 from .base_model import BaseModel
 from . import networks
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class Pix2PixHDModel(BaseModel):
     def name(self):
@@ -322,8 +326,36 @@ class Pix2PixHDModel(BaseModel):
             return I_0
         return initial_I_0
 
-    def inference_with_flow(self, label, next_label, prevouts, face_coords):
-        pass
+    def inference_with_flow(self, prev_label, label, prevouts, face_coords):
+        """
+        改成为next_label生成结果
+        """
+
+        # Encode Inputs        
+        input_label, _, _, _, prevouts = self.encode_input(Variable(label), zeroshere=Variable(prevouts), infer=True)
+
+
+        if self.opt.face_generator:
+            miny = face_coords[0][0]
+            maxy = face_coords[0][1]
+            minx = face_coords[0][2]
+            maxx = face_coords[0][3]
+
+        """ new face """
+        I_0 = 0
+        # Fake Generation
+
+        input_concat = torch.cat((input_label, prevouts), dim=1) 
+        initial_I_0 = self.netG.forward_with_flow(input_concat)
+
+        if self.opt.face_generator:
+            face_label_0 = input_label[:, :, miny:maxy, minx:maxx]
+            face_residual_0 = self.faceGen.forward(torch.cat((face_label_0, initial_I_0[:, :, miny:maxy, minx:maxx]), dim=1))
+            I_0 = initial_I_0.clone()
+            I_0[:, :, miny:maxy, minx:maxx] = initial_I_0[:, :, miny:maxy, minx:maxx] + face_residual_0
+            fake_face_0 = I_0[:, :, miny:maxy, minx:maxx]
+            return I_0
+        return initial_I_0
 
     def get_edges(self, t):
         edge = torch.cuda.ByteTensor(t.size()).zero_()
