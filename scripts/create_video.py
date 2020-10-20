@@ -27,12 +27,20 @@ class Args(TypedArgs):
     output: Path = add_argument(help='output dir')
 
 
-def generate_video(in_dir: Path, image_type: str, out_dir: Path, fps: float = 29.97, scale: str = '256:256'):
+def generate_video(
+    in_dir: Path,
+    image_type: str,
+    out_dir: Path,
+    fps: float = 29.97,
+    scale: str = '256:256',
+    crop: str = 'in_w/2:in_h:0:0'
+):
     out_path = out_dir / f'{image_type}.mp4'
     cmd = [
         'ffmpeg',
         '-r', str(fps),
         '-i', str(in_dir / PATTERNS[image_type]),
+        # '-filter:v', f'crop={crop}'
         '-vf', f'scale={scale}',
         str(out_path)
     ]

@@ -556,6 +556,12 @@ def get_pose_stats(posepts):
 
 		rfoot = 10
 		lfoot = 15
+
+		r_shoulder = 1
+		l_shoulder = 4
+		rfoot = r_shoulder
+		lear = l_shoulder
+
 	elif len(posepts) == 75: ## POSE_BODY_25
 		nose = 0
 		rear = 17

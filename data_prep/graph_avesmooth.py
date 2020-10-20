@@ -90,7 +90,14 @@ if not os.path.exists(savedir + '/debug'):
 	os.makedirs(savedir + '/debug')
 
 print('----------------- Loading Frames -----------------')
+# frames = os.listdir(frames_dir)
+
+# FIXME: 这里没有真的用frame
+json_files = os.listdir(opt.keypoints_dir)
 frames = os.listdir(frames_dir)
+frames.sort()
+frames = frames[:len(json_files)]
+print('frames:', frames)
 print('----------------- All Loaded -----------------')
 
 pose_window = []
@@ -118,6 +125,7 @@ while n <= end:
 	l_handpts = readkeypointsfile(key_name + "_hand_left")
 	if posepts is None: ## try json
 		posepts, facepts, r_handpts, l_handpts = readkeypointsfile(key_name + "_keypoints")
+		# print('key name:', key_name)
 		if posepts is None:
 			print('unable to read keypoints file')
 			import sys

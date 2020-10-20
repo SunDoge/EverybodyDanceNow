@@ -42,3 +42,4 @@ test/data/legacy_serialized.pt
 .vscode/
 exps/
 __pycache__
+temp/

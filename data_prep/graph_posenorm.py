@@ -53,6 +53,7 @@ parser.add_argument('--calculate_scale_translation', action='store_true', help='
 parser.add_argument('--format', type=str, default='json', help='file format for keypoint files, only json and yaml are supported, [json|yaml]')
 parser.add_argument('--map_25_to_23', action='store_true',
                     help='load body keypoints in 25 OpenPose format, but graph in 23 keypoint OpenPose format')
+parser.add_argument('--json', action='store_true')
 
 opt = parser.parse_args()
 
@@ -74,11 +75,17 @@ def get_keypoints_stats(mypath, myshape, spread, startname = "frame", stophere=2
 	while ok:
 		mynum = np.random.randint(low=spread[0], high=spread[1])
 		strmynum = '%06d' % mynum
-		f_yaml = startname + strmynum + "_pose.yml"
-		f_json = startname + strmynum + "_keypoints.json"
+		# f_yaml = startname + strmynum + "_pose.yml"
+		# f_json = startname + strmynum + "_keypoints.json"
 
-		if os.path.isfile(os.path.join(mypath, f_yaml)) or os.path.isfile(os.path.join(mypath, f_json)):
+		# 为了触发readkeypointsfile，去掉后缀
+		f_yaml = startname + strmynum + "_pose"
+		f_json = startname + strmynum + "_keypoints"
+
+		if os.path.isfile(os.path.join(mypath, f_yaml + '.yml')) or os.path.isfile(os.path.join(mypath, f_json + '.json')):
 			key_name = os.path.join(mypath, f_yaml)
+
+			print('key_name:', key_name)
 
 			posepts = []
 
@@ -94,6 +101,7 @@ def get_keypoints_stats(mypath, myshape, spread, startname = "frame", stophere=2
 
 			if opt.map_25_to_23:
 				posepts = map_25_to_23(posepts)
+				# import ipdb; ipdb.set_trace()
 				# print('posepts', posepts)
 
 			if len(posepts) != poselen:
