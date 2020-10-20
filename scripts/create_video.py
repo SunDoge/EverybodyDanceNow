@@ -9,6 +9,7 @@ from typed_args import TypedArgs, add_argument
 from dataclasses import dataclass
 import subprocess
 from pathlib import Path
+from shlex import quote
 
 
 PATTERNS = {
@@ -39,8 +40,9 @@ def generate_video(
     cmd = [
         'ffmpeg',
         '-r', str(fps),
-        '-i', str(in_dir / PATTERNS[image_type]),
+        '-i', quote(str(in_dir / PATTERNS[image_type])),
         # '-filter:v', f'crop={crop}'
+        '-c:v', 'mpeg4',
         '-vf', f'scale={scale}',
         str(out_path)
     ]
@@ -54,6 +56,7 @@ def concat_video(video1: str, video2: str, out_dir: Path):
         'ffmpeg',
         '-i', video1,
         '-i', video2,
+        '-c:v', 'mpeg4',
         '-filter_complex', 'hstack',
         str(out_path)
     ]

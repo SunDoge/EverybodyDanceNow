@@ -23,9 +23,8 @@ python -m data_prep.graph_posenorm \
     --target_shape 1080 1920 3 \
     --source_shape 1080 1920 3 \
     --source_frames $SOURCE/original_frames \
-    --results $TARGET/savefolder \
+    --results $SOURCE/savefolder \
     --target_spread 0 130 \
     --source_spread 0 130 \
     --calculate_scale_translation \
-    --map_25_to_23 \
-    --json
+    --map_25_to_23
