@@ -5,3 +5,19 @@
 """
 
 import numpy as np
+from .renderopenpose import readkeypointsfile
+from typed_args import TypedArgs, add_argument
+from dataclasses import dataclass
+
+
+@dataclass
+class Args(TypedArgs):
+    pass
+
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
