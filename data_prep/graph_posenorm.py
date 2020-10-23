@@ -53,7 +53,6 @@ parser.add_argument('--calculate_scale_translation', action='store_true', help='
 parser.add_argument('--format', type=str, default='json', help='file format for keypoint files, only json and yaml are supported, [json|yaml]')
 parser.add_argument('--map_25_to_23', action='store_true',
                     help='load body keypoints in 25 OpenPose format, but graph in 23 keypoint OpenPose format')
-parser.add_argument('--json', action='store_true')
 
 opt = parser.parse_args()
 
