@@ -15,6 +15,7 @@ from math import sqrt
 from functools import reduce
 from .pose_object import Pose
 import os
+import yaml
 
 gaussconst = 2000
 
@@ -48,30 +49,44 @@ def readkeypointsfile(myfile):
 		# 	sys.exit(1)
 		return None
 
-def readkeypointsfile_yml(myfile):
-	thefile = open(myfile, 'r')
-	a = thefile.readlines()
-	# print a
-	# if len(a) == 2:
-	# 	return []
-	leftovers = []
-	for l in a:
-		leftovers += [l.rstrip().lstrip()]
+# def readkeypointsfile_yml(myfile):
+# 	thefile = open(myfile, 'r')
+# 	a = thefile.readlines()
+# 	# print a
+# 	# if len(a) == 2:
+# 	# 	return []
+# 	leftovers = []
+# 	for l in a:
+# 		leftovers += [l.rstrip().lstrip()]
 
-	find_data = [x.startswith("data") for x in leftovers]
+# 	find_data = [x.startswith("data") for x in leftovers]
 
-	data_ind = np.where(np.array(find_data))[0][0]
+# 	data_ind = np.where(np.array(find_data))[0][0]
 
-	leftovers = leftovers[data_ind:]
+# 	leftovers = leftovers[data_ind:]
 
-	if len(leftovers) == 0:
-		return []
+# 	if len(leftovers) == 0:
+# 		return []
 
-	datastr= reduce(lambda x, y: x + y, leftovers)
-	datastr = datastr.replace("\n", "")
-	bigstring = datastr[7:len(datastr)-2]
-	coords = [float(x.strip()) for x in bigstring.split(',')]
-	return coords
+# 	datastr= reduce(lambda x, y: x + y, leftovers)
+# 	datastr = datastr.replace("\n", "")
+# 	bigstring = datastr[7:len(datastr)-2]
+# 	coords = [float(x.strip()) for x in bigstring.split(',')]
+# 	return coords
+
+
+
+def read_opencv_yml(filename: str) -> dict:
+	
+    with open(filename, 'r') as f:
+        f.readline()
+        content = f.read()
+        content = content.replace('!!opencv-matrix', '')
+        data = yaml.safe_load(content)
+
+    return data
+# 用这个函数替换
+readkeypointsfile_yml = read_opencv_yml
 
 def readkeypointsfile_json(myfile):
 	import json
